@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://cc1gg2xtkcsda"]
+
+[ext_resource type="PackedScene" uid="uid://ba448glx7dan1" path="res://SceneInstances/XR_Rig.tscn" id="1_ftywl"]
+[ext_resource type="Script" path="res://Scripts/WorldEnv_Script.gd" id="2_ciknl"]
+[ext_resource type="Material" uid="uid://bsdcu1jelcsgp" path="res://Materials/Base.tres" id="3_70thp"]
+[ext_resource type="PackedScene" uid="uid://c4qv8ig648cal" path="res://SceneInstances/SpawnerForBoxes.tscn" id="4_hdxrf"]
+[ext_resource type="PackedScene" uid="uid://1jxnlc2cdmek" path="res://SceneInstances/Blue_Box.tscn" id="5_08dk7"]
+[ext_resource type="PackedScene" uid="uid://dqn6eenc4fxhd" path="res://SceneInstances/Red_Box.tscn" id="6_c316e"]
+
+[sub_resource type="Environment" id="Environment_xrb10"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_jj87v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ep6q4"]
+size = Vector3(10, 0.1, 10)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="XROrigin3D" parent="." instance=ExtResource("1_ftywl")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xrb10")
+camera_attributes = SubResource("CameraAttributesPractical_jj87v")
+script = ExtResource("2_ciknl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldEnvironment"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="WorldEnvironment/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0509903, 0.032438, -0.0394304)
+size = Vector3(10, 0.1, 10)
+material = ExtResource("3_70thp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/StaticBody3D"]
+shape = SubResource("BoxShape3D_ep6q4")
+
+[node name="SpawnerForBoxes" parent="." instance=ExtResource("4_hdxrf")]
+
+[node name="Blue_Box" parent="." instance=ExtResource("5_08dk7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 1335.41, 1.57364, -323.998)
+
+[node name="Red_Box" parent="." instance=ExtResource("6_c316e")]
+transform = Transform3D(0.648691, -4.15001e-08, 0.761052, 2.98023e-08, 1, 3.72529e-09, -0.761052, 4.29456e-08, 0.648691, 1919.16, 55.5149, -552.877)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.702588, 0.519666, 0.486125, -0.711597, 0.513087, 0.47997, 0, -0.683146, 0.730282, 0, 0, 0)
